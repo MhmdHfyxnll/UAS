@@ -71,7 +71,7 @@ flowchart TD
 
 # Contoh Penggunaan
 
-### 1. Pengguna menjalankan program, memasukkan nama produk seperti "Laptop X".
+### 1. Pengguna menjalankan program, memasukkan nama produk seperti "Handphone".
 ### 2. Pengguna memasukkan review pertama: rating ```5``` dengan komentar "Produk sangat bagus!".
 ### 3. Pengguna memasukkan review kedua: rating ```3``` dengan komentar "Cukup baik, tapi ada kekurangan".
 ### 4. Program menampilkan:
@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
 # Skenario Input:
 
-### 1. Nama produk: "Laptop X"
+### 1. Nama produk: "Handphone"
 ### 2. Review 1:
 - Rating: 5
 - Komentar: "Produk sangat bagus!"
@@ -214,7 +214,7 @@ if __name__ == "__main__":
 # Contoh Output
 ```
 Selamat datang di sistem review produk!
-Masukkan nama produk: Laptop X
+Masukkan nama produk: Handphone
 
 Tulis review untuk produk ini:
 Masukkan rating (1-5): 5
@@ -226,7 +226,7 @@ Masukkan rating (1-5): 3
 Masukkan komentar: Cukup baik, tapi ada kekurangan.
 Apakah Anda ingin menambah review lain? (y/n): n
 
-Review untuk produk: Laptop X
+Review untuk produk: Handphone
 Review 1:
 Rating: 5
 Komentar: Produk sangat bagus!
@@ -235,7 +235,7 @@ Review 2:
 Rating: 3
 Komentar: Cukup baik, tapi ada kekurangan.
 --------------------
-Rata-rata rating untuk produk Laptop X: 4.00
+Rata-rata rating untuk produk Handphone: 4.00
 ```
 
 # Penjelasan Output:
