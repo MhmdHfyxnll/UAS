@@ -1,246 +1,176 @@
 # Project-UAS
 ## Link URL Video
-https://youtu.be/rJN3ls8YHtE
-# Flowchart
-```mermaid
-flowchart TD
-    A([Mulai]) --> B[Input nama produk]
-    B --> C{Loop untuk menambahkan review}
-    C -->|Ya| D[Input rating]
-    D --> E{Validasi rating}
-    E -->|Valid| F[Input komentar]
-    E -->|Tidak valid| D
-    F --> G[Tambahkan review ke data]
-    G --> H{Tambah review lain?}
-    H -->|Ya| D
-    H -->|Tidak| I[Tampilkan semua review]
-    I --> J[Tampilkan rata-rata rating]
-    J --> K([Selesai])
+(https://youtu.be/kge49PbA3hg?si=kqQzt68_6PwTS5cR)
 ```
-
-# Struktur Utama Program
-
-### 1. Class ```Data```
-
-- Menyimpan data sebuah produk, termasuk nama produk dan daftar review terkait.
-- Atribut:
-  
-    - ```product_name```: Nama produk.
-    - ```reviews```: Daftar review (list).
-### 2. Class ```Review```
-
-- Menyimpan informasi sebuah review, yang terdiri dari rating dan komentar.
-- Atribut:
-   - ```rating```: Rating dari pengguna (angka antara 1-5).
-   - ```comment```: Komentar dari pengguna.
-### 3. Class ```Process```
-
-- Berisi metode statis untuk memproses review dan data terkait. Metode yang disediakan adalah:
-   - ```validate_rating(rating)```: Memastikan rating berada dalam rentang 1-5.
-   - ```add_review(data, rating, comment)```: Menambahkan review ke dalam daftar review produk.
-   - ```calculate_average_rating(data)```: Menghitung rata-rata rating dari semua review.
-   - ```display_reviews(data)```: Menampilkan semua review yang telah ditambahkan.
-   - ```display_average_rating(data)```: Menampilkan rata-rata rating untuk produk.
-
-# Alur Program Utama
-
-### 1. Input Nama Produk
-- Pengguna diminta untuk memasukkan nama produk yang ingin mereka berikan review.
-### 2. Menambahkan Review
-- Pengguna diminta untuk memasukkan rating (dengan validasi bahwa nilai harus antara 1-5).
-- Pengguna kemudian memasukkan komentar.
-- Review yang valid ditambahkan ke daftar review produk.
-### 3. Melakukan Iterasi
-- Pengguna diberikan opsi untuk menambahkan review tambahan (loop).
-### 4. Menampilkan Data
-- Program menampilkan semua review yang sudah ditambahkan.
-- Program juga menghitung dan menampilkan rata-rata rating produk.
-
-# Fungsi-Fungsi Penting
-
-- ```validate_rating(rating)```
-    - Memastikan input rating valid (angka 1-5). Jika tidak valid, pengguna diberi pesan error.
-- ```add_review(data, rating, comment)```
-    - Membuat instance ```Review``` baru dengan rating dan komentar yang diberikan, lalu menambahkannya ke dalam atribut ```reviews``` dari instance ```Data```.
-- ```calculate_average_rating(data)```
-    - Menghitung rata-rata dari semua rating yang ada di dalam ```data.reviews```.
-- ```display_reviews(data)```
-    - Menampilkan semua review dalam format terstruktur.
-- ```display_average_rating(data)```
-    - Menampilkan rata-rata rating produk dalam format angka desimal dua digit.
-
-# Contoh Penggunaan
-
-### 1. Pengguna menjalankan program, memasukkan nama produk seperti "Handphone".
-### 2. Pengguna memasukkan review pertama: rating ```5``` dengan komentar "Produk sangat bagus!".
-### 3. Pengguna memasukkan review kedua: rating ```3``` dengan komentar "Cukup baik, tapi ada kekurangan".
-### 4. Program menampilkan:
-  - Semua review yang telah ditambahkan.
-  - Rata-rata rating produk, misalnya, ```4.00```.
-
-Kode ini berguna untuk sistem manajemen ulasan sederhana, seperti yang dapat digunakan pada platform e-commerce kecil.
-
-# Contoh Kode
-
-```python
-from data import Data
-from review import Review
-
-class Process:
-    @staticmethod
-    def validate_rating(rating):
-        """Validasi input rating agar antara 1 hingga 5"""
-        if rating < 1 or rating > 5:
-            print("Rating harus antara 1 hingga 5.")
-            return False
-        return True
-    
-    @staticmethod
-    def add_review(data, rating, comment):
-        """Menambahkan review ke dalam data produk"""
-        review = Review(rating, comment)
-        data.reviews.append(review)
-
-# Class untuk menyimpan data produk dan review
 class Data:
-    def __init__(self, product_name):
-        self.product_name = product_name
-        self.reviews = []
+    """
+    Class untuk mengelola data yang dimasukkan pengguna.
+    """
+    def _init_(self):
+        self.records = []
 
-# Class untuk menyimpan review dari pengguna
-class Review:
-    def __init__(self, rating, comment):
-        self.rating = rating
-        self.comment = comment
+    def add_record(self, name, age, profession):
+        self.records.append({"name": name, "age": age, "profession": profession})
 
-# Class untuk memproses data dan review
+
+class View:
+    """
+    Class untuk menangani tampilan hasil.
+    """
+    @staticmethod
+    def display_table(records):
+        if not records:
+            print("\nNo data available.")
+            return
+
+        print("\n| Name           | Age  | Profession      |")
+        print("+----------------+------+-----------------+")
+        for record in records:
+            print(f"| {record['name']:<14} | {record['age']:<4} | {record['profession']:<15} |")
+        print("+----------------+------+-----------------+")
+
+    @staticmethod
+    def show_error(message):
+        print(f"Error: {message}")
 class Process:
-    @staticmethod
-    def validate_rating(rating):
-        """Validasi input rating agar antara 1 hingga 5"""
-        if rating < 1 or rating > 5:
-            print("Rating harus antara 1 hingga 5.")
-            return False
-        return True
-    
-    @staticmethod
-    def add_review(data, rating, comment):
-        """Menambahkan review ke dalam data produk"""
-        review = Review(rating, comment)
-        data.reviews.append(review)
+    """
+    Class untuk memproses data dari input pengguna.
+    """
+    def _init_(self, data):
+        self.data = data
 
-    @staticmethod
-    def calculate_average_rating(data):
-        """Menghitung rata-rata rating dari semua review"""
-        if len(data.reviews) == 0:
-            return 0
-        total_rating = sum(review.rating for review in data.reviews)
-        return total_rating / len(data.reviews)
-    
-    @staticmethod
-    def display_reviews(data):
-        """Menampilkan semua review untuk produk"""
-        if len(data.reviews) == 0:
-            print("Tidak ada review untuk produk ini.")
-        else:
-            print(f"\nReview untuk produk: {data.product_name}")
-            for idx, review in enumerate(data.reviews, start=1):
-                print(f"Review {idx}:")
-                print(f"Rating: {review.rating}")
-                print(f"Komentar: {review.comment}")
-                print("-" * 20)
+    def add_data(self):
+        try:
+            name = input("Enter name: ").strip()
+            if not name:
+                raise ValueError("Name cannot be empty.")
 
-    @staticmethod
-    def display_average_rating(data):
-        """Menampilkan rata-rata rating produk"""
-        average = Process.calculate_average_rating(data)
-        print(f"Rata-rata rating untuk produk {data.product_name}: {average:.2f}")
+            age = input("Enter age: ").strip()
+            if not age.isdigit():
+                raise ValueError("Age must be a number.")
+            age = int(age)
+            if age <= 0:
+                raise ValueError("Age must be greater than zero.")
 
-# Fungsi utama untuk menjalankan program
+            profession = input("Enter profession: ").strip()
+            if not profession:
+                raise ValueError("Profession cannot be empty.")
+
+            self.data.add_record(name, age, profession)
+
+        except ValueError as e:
+            View.show_error(e)
+# Main program
 def main():
-    print("Selamat datang di sistem review produk!")
-    
-    # Input nama produk
-    product_name = input("Masukkan nama produk: ")
-    data = Data(product_name)
-    
-    # Loop untuk menambahkan review
+    data = Data()
+    process = Process(data)
+
     while True:
-        print("\nTulis review untuk produk ini:")
-        
-        # Input rating dengan validasi
-        while True:
-            try:
-                rating = int(input("Masukkan rating (1-5): "))
-                if Process.validate_rating(rating):
-                    break
-            except ValueError:
-                print("Masukkan angka yang valid untuk rating.")
-        
-        # Input komentar
-        comment = input("Masukkan komentar: ")
-        
-        # Menambahkan review
-        Process.add_review(data, rating, comment)
-        
-        # Tanya apakah ingin menambah review lagi
-        continue_review = input("Apakah Anda ingin menambah review lain? (y/n): ").lower()
-        if continue_review != 'y':
+        print("\nMenu:")
+        print("1. Add Data")
+        print("2. Show Data")
+        print("3. Exit")
+
+        choice = input("Choose an option: ").strip()
+
+        if choice == "1":
+            process.add_data()
+        elif choice == "2":
+            View.display_table(data.records)
+        elif choice == "3":
+            print("Goodbye!")
             break
-    
-    # Menampilkan semua review
-    Process.display_reviews(data)
-    
-    # Menampilkan rata-rata rating
-    Process.display_average_rating(data)
+        else:
+            print("Invalid choice. Please try again.")
 
-# Menjalankan program
-if __name__ == "__main__":
-    main()
+
+if _name_ == "_main_":
+    main()
+
 ```
-
-
-# Skenario Input:
-
-### 1. Nama produk: "Handphone"
-### 2. Review 1:
-- Rating: 5
-- Komentar: "Produk sangat bagus!"
-### 3. Review 2:
-- Rating: 3
-- Komentar: "Cukup baik, tapi ada kekurangan."
-### 4. Pengguna berhenti menambahkan review.
-
-# Contoh Output
+# 1. Kelas Data
+Tujuan: Mengelola penyimpanan data.
+Atribut:
+self.records: Sebuah daftar (list) yang berisi data pengguna dalam bentuk kamus.
+Metode:
+add_record(name, age, profession): Menambahkan data berupa nama, umur, dan profesi ke dalam daftar records.
+# 2. Kelas View
+Tujuan: Menangani tampilan data dan pesan kesalahan.
+Metode:
+display_table(records):
+Menampilkan data dalam format tabel.
+Jika tidak ada data, menampilkan pesan bahwa data kosong.
+show_error(message):
+Menampilkan pesan kesalahan dalam format "Error: {pesan}".
+# 3. Kelas Process
+Tujuan: Mengelola proses input data dari pengguna.
+Atribut:
+self.data: Mengacu pada objek kelas Data untuk menyimpan data yang telah diproses.
+Metode:
+add_data():
+Menerima input dari pengguna untuk nama, umur, dan profesi.
+Melakukan validasi:
+Nama tidak boleh kosong.
+Umur harus angka yang lebih besar dari 0.
+Profesi tidak boleh kosong.
+Jika validasi gagal, menampilkan pesan kesalahan menggunakan View.show_error.
+Jika validasi berhasil, data ditambahkan ke dalam objek Data menggunakan add_record.
+# 4. Fungsi main()
+Tujuan: Mengatur alur program.
+Alur:
+Membuat objek Data dan Process.
+Menampilkan menu pilihan:
+Add Data: Memanggil process.add_data() untuk menambahkan data pengguna.
+Show Data: Memanggil View.display_table(data.records) untuk menampilkan semua data dalam tabel.
+Exit: Keluar dari program.
+Jika pengguna memilih opsi yang tidak valid, program meminta pengguna untuk mencoba lagi.
+# 5. Cara Kerja Program
+Saat dijalankan, pengguna diberikan pilihan menu.
+Jika memilih "1. Add Data":
+Program meminta pengguna memasukkan nama, umur, dan profesi.
+Data divalidasi, lalu disimpan jika valid.
+Jika memilih "2. Show Data":
+Program menampilkan semua data yang sudah dimasukkan dalam bentuk tabel.
+Jika memilih "3. Exit":
+Program berhenti dan menampilkan pesan selamat tinggal.
+Jika memasukkan pilihan yang salah, program akan meminta pengguna mencoba lagi.
+Contoh Interaksi
+Input:
+plaintext
+Copy code
+Menu:
+1. Add Data
+2. Show Data
+3. Exit
+Choose an option: 1
+Enter name: Alice
+Enter age: 25
+Enter profession: Engineer
+Output:
+plaintext
+Copy code
+Data added successfully.
+Input:
+plaintext
+Copy code
+Menu:
+1. Add Data
+2. Show Data
+3. Exit
+Choose an option: 2
+Output:
+plaintext
+Copy code
+| Name           | Age  | Profession      |
++----------------+------+-----------------+
+| Alice          | 25   | Engineer        |
++----------------+------+-----------------+
+# Keunggulan
+Pemrograman Berorientasi Objek: Kode terstruktur dengan baik menggunakan kelas.
+Modularitas: Logika penyimpanan, tampilan, dan pemrosesan dipisahkan dalam kelas yang berbeda.
+Validasi Input: Program memastikan data yang dimasukkan valid sebelum menyimpannya.
+Peningkatan yang Mungkin
+Tambahkan fitur untuk menghapus atau memperbarui data.
+Simpan data ke file agar tidak hilang setelah program ditutup.
+Gunakan pustaka tabel seperti tabulate untuk tampilan tabel yang lebih rapi.
 ```
-Selamat datang di sistem review produk!
-Masukkan nama produk: Handphone
-
-Tulis review untuk produk ini:
-Masukkan rating (1-5): 5
-Masukkan komentar: Produk sangat bagus!
-Apakah Anda ingin menambah review lain? (y/n): y
-
-Tulis review untuk produk ini:
-Masukkan rating (1-5): 3
-Masukkan komentar: Cukup baik, tapi ada kekurangan.
-Apakah Anda ingin menambah review lain? (y/n): n
-
-Review untuk produk: Handphone
-Review 1:
-Rating: 5
-Komentar: Produk sangat bagus!
---------------------
-Review 2:
-Rating: 3
-Komentar: Cukup baik, tapi ada kekurangan.
---------------------
-Rata-rata rating untuk produk Handphone: 4.00
-```
-
-# Penjelasan Output:
-
-### 1. Program menyambut pengguna dan meminta nama produk.
-### 2. Pengguna menambahkan dua review dengan rating dan komentar.
-### 3. Program menampilkan semua review yang telah ditambahkan dalam format terstruktur.
-### 4. Program menghitung dan menampilkan rata-rata rating dari semua review.
